@@ -65,6 +65,7 @@ assert_tool blkid
 assert_tool realpath
 assert_tool 7z
 assert_tool dd
+assert_tool yq
 assert_tool jq
 
 ## Check if we are building a supported image
@@ -240,6 +241,14 @@ extraargs=elevator=deadline init=/sbin/init.resizefs
 EOF
 	sudo install -m 0644 -o root -g root orangepipc2-boot.cmd root/boot/boot.cmd
 	sudo mkimage -C none -A arm -T script -d root/boot/boot.cmd root/boot/boot.scr
+fi
+
+echo "== Preprocessing configs... =="
+if [ -r config/base.yaml ]; then
+  if [ -r config/secrets.yaml ]; then
+    yq merge --inplace config/base.yaml config/secrets.yaml
+  fi
+  for f in config/*:*.yaml; do yq merge --inplace $f config/base.yaml; done
 fi
 
 ## Install k3os, busybox and resize dependencies
