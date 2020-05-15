@@ -246,9 +246,9 @@ fi
 echo "== Preprocessing configs... =="
 if [ -r config/base.yaml ]; then
   if [ -r config/secrets.yaml ]; then
-    yq merge --inplace config/base.yaml config/secrets.yaml
+yq merge --inplace --overwrite config/base.yaml config/secrets.yaml
   fi
-  for f in config/*:*.yaml; do yq merge --inplace $f config/base.yaml; done
+for f in config/*:*.yaml; do yq merge --inplace --overwrite $f config/base.yaml; done
 fi
 
 ## Install k3os, busybox and resize dependencies
@@ -362,7 +362,8 @@ sudo kpartx -d $LODEV
 sleep 1
 sudo losetup -d $LODEV
 
-IMAGE_FINAL=picl-k3os-${K3OS_VERSION}-${IMAGE_TYPE}.img
+mkdir -p build
+IMAGE_FINAL=build/picl-k3os-${K3OS_VERSION}-${IMAGE_TYPE}.img
 mv $IMAGE $IMAGE_FINAL
 echo ""
 echo "== $IMAGE_FINAL created. =="

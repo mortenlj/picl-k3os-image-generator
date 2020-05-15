@@ -1,0 +1,9 @@
+ssh_authorized_keys:
+k3os:
+  data_sources:
+    - cdrom
+  wifi:
+  server_url: https://rpi3b01:6443
+  k3s_args:
+    - agent
+hostname: dummy

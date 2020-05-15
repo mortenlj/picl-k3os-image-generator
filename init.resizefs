@@ -4,11 +4,6 @@ set -e
 
 IMAGE_TYPE="@IMAGE_TYPE@"
 
-if [ -z "${LOGFILE}" ]; then
-  export LOGFILE=/root/resizefs.log
-  exec >> ${LOGFILE} 2>&1
-fi
-
 # sleep a second for devices to settle
 sleep 1
 
@@ -40,6 +35,9 @@ sleep 5
 mount -o remount,rw /
 resize2fs $ROOTDEVICE
 sleep 5
+
+# Capturing output from here on out
+{
 
 echo "== Setting proper init... =="
 if [ "$IMAGE_TYPE" = "raspberrypi" ]; then
@@ -76,6 +74,8 @@ if [ ! -r /k3os/system/config.yaml ]; then
     echo "Error: No configuration found any interface."
     exit 1
 fi
+
+} >> /k3os/system/resizefs.log 2>&1
 
 echo "== Cleaning up and rebooting... =="
 rm /root-resize.tar.xz
