@@ -24,5 +24,8 @@ echo "== Building builder... =="
 docker build -t picl-k3os-image-generator:latest .
 
 echo "== Building image... =="
-mkdir -p build
-docker run --privileged --rm -ti --mount type=bind,src=${PWD}/build,dst=/builder/build picl-k3os-image-generator:latest ./build-image.sh raspberrypi
+mkdir -p build deps
+docker run --privileged --rm -ti \
+  --mount type=bind,src=${PWD}/build,dst=/builder/build \
+  --mount type=bind,src=${PWD}/deps,dst=/builder/deps \
+  picl-k3os-image-generator:latest ./build-image.sh raspberrypi
