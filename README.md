@@ -1,5 +1,7 @@
 # PiCl k3os image generator
 
+> !!! This is my private fork, with configuration for my clusters and some improvements to scripts and adaptations to make it work on Mac.
+
 This project can be used to generate images for k3os compatible with various armv8 (aarch64) devices:
 
 - Raspberry Pi model 3B+
