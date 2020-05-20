@@ -221,6 +221,7 @@ if [ "$IMAGE_TYPE" = "raspberrypi" ]; then
 	sudo cp -R $PITEMP/modules root/lib
 
 	cat <<EOF | sudo tee boot/config.txt >/dev/null
+enable_uart=0
 dtoverlay=vc4-fkms-v3d
 gpu_mem=128
 arm_64bit=1
@@ -246,9 +247,9 @@ fi
 echo "== Preprocessing configs... =="
 if [ -r config/base.yaml ]; then
   if [ -r config/secrets.yaml ]; then
-yq merge --inplace --overwrite config/base.yaml config/secrets.yaml
+    yq merge --inplace --overwrite config/base.yaml config/secrets.yaml
   fi
-for f in config/*:*.yaml; do yq merge --inplace --overwrite $f config/base.yaml; done
+  for f in config/*:*.yaml; do yq merge --inplace $f config/base.yaml; done
 fi
 
 ## Install k3os, busybox and resize dependencies
