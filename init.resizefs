@@ -73,6 +73,7 @@ if [ ! -r /k3os/system/config.yaml ]; then
   else
     echo "Error: No configuration found any interface."
     exit 1
+  fi
 fi
 
 } >> /k3os/system/resizefs.log 2>&1
