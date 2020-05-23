@@ -2,7 +2,15 @@ hostname: "rpi3b01"
 k3os:
   k3s_args:
   - server
-  - --no-deploy=traefik
-  - --kubelet-arg address=0.0.0.0
-  - --kube-controller-arg terminated-pod-gc-threshold=15
-  - --kube-apiserver-arg requestheader-allowed-names=system:auth-proxy,kubernetes-proxy
+  - --disable
+  - traefik
+  - --disable
+  - servicelb
+  - --kubelet-arg
+  - address=0.0.0.0
+  - --kube-controller-arg
+  - terminated-pod-gc-threshold=15
+  - --kube-apiserver-arg
+  - requestheader-allowed-names=system:auth-proxy,kubernetes-proxy
+  - --write-kubeconfig
+  - /var/lib/rancher/k3s/kubeconfig.yml

@@ -1,3 +1,17 @@
+write_files:
+  - content: |
+      # Install alpine package the dumb way. User is responsible for dependencies and ordering.
+      package="${1}"
+
+      wget -P /tmp/ "http://dl-cdn.alpinelinux.org/alpine/latest-stable/main/aarch64/${package}"
+      tar -C /usr/local/ --strip 1 -xzvf "/tmp/${package}"
+    owner: root:root
+    path: /usr/local/bin/dumb_package.sh
+    permissions: "0755"
+run_cmd:
+  - /usr/local/bin/dumb_package.sh python3-3.8.2-r0.apk
+  - /usr/local/bin/dumb_package.sh libmagic-5.37-r1.apk
+  - /usr/local/bin/dumb_package.sh nano-4.6-r0.apk
 ssh_authorized_keys:
 k3os:
   data_sources:
@@ -6,4 +20,11 @@ k3os:
   server_url: https://rpi3b01:6443
   k3s_args:
     - agent
+  ntp_servers:
+    - ntp.uio.no
+    - ntp.uninett.no
+    - ntp.uit.no
+    - no.pool.ntp.org
+  environment:
+    TZ: Europe/Oslo
 hostname: dummy
