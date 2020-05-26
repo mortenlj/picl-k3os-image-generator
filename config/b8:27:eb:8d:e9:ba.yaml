@@ -6,11 +6,17 @@ k3os:
   - traefik
   - --disable
   - servicelb
-  - --kubelet-arg
-  - address=0.0.0.0
+  - --disable
+  - local-storage
+  - --write-kubeconfig
+  - /var/lib/rancher/k3s/kubeconfig.yml
+  - --tls-san
+  - rpi3b01
+  - --node-name
+  - rpi3b01
   - --kube-controller-arg
   - terminated-pod-gc-threshold=15
   - --kube-apiserver-arg
   - requestheader-allowed-names=system:auth-proxy,kubernetes-proxy
-  - --write-kubeconfig
-  - /var/lib/rancher/k3s/kubeconfig.yml
+  - --kube-apiserver-arg
+  - external-hostname=rpi3b01

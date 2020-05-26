@@ -8,16 +8,56 @@ write_files:
     owner: root:root
     path: /usr/local/bin/dumb_package.sh
     permissions: "0755"
+  - content: |
+      # Create localtime symlink.
+      unlink /etc/localtime
+      ln -s /usr/share/zoneinfo/Europe/Oslo /etc/localtime
+    owner: root:root
+    path: /usr/local/bin/set-timezone.sh
+    permissions: "0755"
+  - owner: root:root
+    path: /etc/profile.d/color_prompt.sh
+    permissions: "0755"
+    encoding: gzip+base64
+    content: |
+      H4sICKkkzF4AA2NvbG9yLXByb21wdC5zaACVVW1v2kgQ/u5fMXWtEKpLHCBN70BEpQkKlQJGmKp3
+      ByhazBpbtXd93nUCh5DyNyr1/lx+yc2uwUCSfihfWM8888wzsy/z9o2didSehsym7B6mRATGW/g4
+      92tPj98FuHSxhE9ohH7K40T+BiETSZjSGUyX8PT4o72QKbknc8Ik/F3Anh7/QxY3IDGNqBDREjye
+      hBjkoxsCKRNRt+15KINseurx2MZ89oxLP0S4YcyoT7JI3mWCpgw5mqWMfWP8gZWM/sDp9odXndag
+      aY4t08A0MyppGoeMAkm9wOi2rjqfe+2maR1nKhhO4jLiPCIomNZq416bWIkB+CMq6uK8rD/UrzW4
+      6jRNm6TxxblZWBsNvVz8fnH3EvwC9u4F3V7mfTAVxDOMzl/9wWdneOe4issIfRiN4CQFm0rP5uIk
+      xTYq/ZNJA2RAc+GCZ6lHn2MMPywImCp4x401HxD0Wl1sU2eZpCGXjmsaNDrMLJaMh8znuEXMfy3W
+      RUDE58teay962/iyCc0mmNckfQjZq6m7xHPcP00l2XFzk7VS/2trpdq2rkPRDfRcObfOYNgedNea
+      ec54TE/ewdGRcu7sC3UcMJ1yKPVenGyw1fcXHupN4dKe0XubZVEE1cujSiGMLhKeSlBczcOQvLot
+      nU7xa3SHIdtdkkkmQVBJfKjA0SUURAVHjpinZ7jOO2Eda5vmEWU4mVNAWlVw9fJlPMCn2y/t5iYo
+      T7U5v93WTbs3bB36/sh9zqDVu3kWVvlQzZ03g3a7d+j7cKZcNMID+Os53/88Z+2nGVELurCPmM25
+      vd46pzyaqZhB220PiwjsX9nYqMu1lcZntdqo0qidxyVjT1dhr2j7VlNhrmnzRk9hrWqr1lEq7bLn
+      fvSp7canymH4FIqAP8D2abMDLqTaWMYlbN49w8+YJ0POCpQCHZdhVZwBPPBf3PYAD/ybpvp4/mI+
+      v+rUC7jCqdrxcuW3ba3eJF32ekNnrbRw/FelrD8iUtePho7jDjdBBxi8E2A29vf+9Vwag21Yqz6E
+      Q3VFh2QKhM1gGMqIwlUmJI/Df4muXNkTPUvA23dgsBofOD0EmdPTzBPeKZ1l9kKSyA7VHbuTZHp3
+      EHMayDhSaft4FLAlIGQasjmYMFLzboKaVYNV3+p128fbY89wxHmSp0s7ITIwlWSmQ6XWOiUp7o3i
+      UDYcYLHSK+g/GWUeRfR4NKaTaqPgHwf1+nhi9b9eo4eMJ/tqEooXVoYxkVSX7WVpSnGcFhp22XWB
+      gAVuU1QayHqMWageddYxBuUrTFUu2+Ov23x9t4ITM5e10/EaibljMRXSLJs7os2uj/GN3zub5fHI
+      0lcCGR9wrU+IYrcUGhfMWu0m9xp2ENP4H4eg3/SCCAAA
+  - owner: root:root
+    path: /etc/profile.d/bash-aliases.sh
+    permissions: "0755"
+    encoding: gzip+base64
+    content: |
+      H4sICFEmzF4AA2Jhc2gtYWxpYXNlcy5zaABdjbEOgjAYhPc+xQWJ1YGwa3A3MWKCi5NUKNrkpzW0
+      FfHpLSRG43rfd3cznIxHKwZ4XZm2ldrB3SQaQ2R6pa8gpaWFajAEsReBl2Q5nMFFojJkOvWS9Yqx
+      oMQLskiSKc2ED858g7SWj1R7ouV6nNYMkM+76Rx2xTk/HLf5vsj4b4uPykMQorJW3ZTbMmKNYkyQ
+      EhZkMx6e4u8A/xD6J0iIszfCpoDJ5wAAAA==
 run_cmd:
   - /usr/local/bin/dumb_package.sh python3-3.8.2-r0.apk
   - /usr/local/bin/dumb_package.sh libmagic-5.37-r1.apk
   - /usr/local/bin/dumb_package.sh nano-4.6-r0.apk
+  - /usr/local/bin/set-timezone.sh
 ssh_authorized_keys:
 k3os:
   data_sources:
     - cdrom
   wifi:
-  server_url: https://rpi3b01:6443
   k3s_args:
     - agent
   ntp_servers:

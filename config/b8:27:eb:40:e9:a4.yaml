@@ -1,1 +1,3 @@
 hostname: "rpi3b02"
+k3os:
+  server_url: https://rpi3b01:6443
