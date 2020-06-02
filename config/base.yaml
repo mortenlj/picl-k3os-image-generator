@@ -48,6 +48,10 @@ write_files:
       FfHpLSRG43rfd3cznIxHKwZ4XZm2ldrB3SQaQ2R6pa8gpaWFajAEsReBl2Q5nMFFojJkOvWS9Yqx
       oMQLskiSKc2ED858g7SWj1R7ouV6nNYMkM+76Rx2xTk/HLf5vsj4b4uPykMQorJW3ZTbMmKNYkyQ
       EhZkMx6e4u8A/xD6J0iIszfCpoDJ5wAAAA==
+  - owner: root:root
+    path: /etc/conf.d/syslog
+    permissions: "0644"
+    content: SYSLOGD_OPTS="-t -R emrys:514"
 run_cmd:
   - /usr/local/bin/dumb_package.sh python3-3.8.3-r0.apk
   - /usr/local/bin/dumb_package.sh libmagic-5.38-r0.apk
