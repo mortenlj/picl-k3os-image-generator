@@ -3,7 +3,7 @@ write_files:
       # Install alpine package the dumb way. User is responsible for dependencies and ordering.
       package="${1}"
 
-      wget -P /tmp/ "http://dl-cdn.alpinelinux.org/alpine/latest-stable/main/aarch64/${package}"
+      wget -P /tmp/ "http://dl-cdn.alpinelinux.org/alpine/v3.12/main/aarch64/${package}"
       tar -C /usr/local/ --strip 1 -xzvf "/tmp/${package}"
     owner: root:root
     path: /usr/local/bin/dumb_package.sh
@@ -49,9 +49,9 @@ write_files:
       oMQLskiSKc2ED858g7SWj1R7ouV6nNYMkM+76Rx2xTk/HLf5vsj4b4uPykMQorJW3ZTbMmKNYkyQ
       EhZkMx6e4u8A/xD6J0iIszfCpoDJ5wAAAA==
 run_cmd:
-  - /usr/local/bin/dumb_package.sh python3-3.8.2-r0.apk
-  - /usr/local/bin/dumb_package.sh libmagic-5.37-r1.apk
-  - /usr/local/bin/dumb_package.sh nano-4.6-r0.apk
+  - /usr/local/bin/dumb_package.sh python3-3.8.3-r0.apk
+  - /usr/local/bin/dumb_package.sh libmagic-5.38-r0.apk
+  - /usr/local/bin/dumb_package.sh nano-4.9.3-r0.apk
   - /usr/local/bin/set-timezone.sh
 ssh_authorized_keys:
 k3os:
