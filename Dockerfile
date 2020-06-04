@@ -14,6 +14,7 @@ RUN apt-get update && \
         binutils \
         p7zip-full \
         yq \
+        jq \
         sudo
 
 COPY . /builder
