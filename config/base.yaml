@@ -5,6 +5,7 @@ write_files:
 
       wget -P /tmp/ "http://dl-cdn.alpinelinux.org/alpine/v3.12/main/aarch64/${package}"
       tar -C /usr/local/ --strip 1 -xzvf "/tmp/${package}"
+      rm -f "/tmp/${package}"
     owner: root:root
     path: /usr/local/bin/dumb_package.sh
     permissions: "0755"
@@ -49,9 +50,36 @@ write_files:
       oMQLskiSKc2ED858g7SWj1R7ouV6nNYMkM+76Rx2xTk/HLf5vsj4b4uPykMQorJW3ZTbMmKNYkyQ
       EhZkMx6e4u8A/xD6J0iIszfCpoDJ5wAAAA==
   - owner: root:root
+    path: /etc/fstab
+    permissions: "0644"
+    content: |
+      tmpfs    /var/tmp    tmpfs    defaults,noatime,nosuid,size=30m    0 0
+      tmpfs    /var/log    tmpfs    defaults,noatime,nosuid,mode=0755,size=100m    0 0
+  - owner: root:root
     path: /etc/conf.d/syslog
     permissions: "0644"
-    content: SYSLOGD_OPTS="-t -R emrys:514"
+    content: SYSLOGD_OPTS="-t -L -C512 -D -R emrys:514"
+  - owner: root:root
+    path: /usr/local/bin/k3s-logger.sh
+    permissions: "0755"
+    content: |
+      #!/bin/sh
+      tail -F /var/log/k3s-service.log | logger -e
+  - owner: root:root
+    path: /etc/init.d/k3s-logger
+    permissions: "0755"
+    content: |
+      #!/sbin/openrc-run
+
+      depend() {
+        before k3s-service
+      }
+
+      supervisor=supervise-daemon
+      name=k3s-logger
+      command="/usr/local/bin/k3s-logger.sh"
+boot_cmd:
+  - rc-update add k3s-logger default
 run_cmd:
   - /usr/local/bin/dumb_package.sh python3-3.8.3-r0.apk
   - /usr/local/bin/dumb_package.sh libmagic-5.38-r0.apk
@@ -59,8 +87,6 @@ run_cmd:
   - /usr/local/bin/set-timezone.sh
 ssh_authorized_keys:
 k3os:
-  data_sources:
-    - cdrom
   wifi:
   k3s_args:
     - agent
