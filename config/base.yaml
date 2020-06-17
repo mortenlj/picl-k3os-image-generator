@@ -85,6 +85,7 @@ run_cmd:
   - /usr/local/bin/dumb_package.sh libmagic-5.38-r0.apk
   - /usr/local/bin/dumb_package.sh nano-4.9.3-r0.apk
   - /usr/local/bin/set-timezone.sh
+  - /usr/bin/updatedb
 ssh_authorized_keys:
 k3os:
   wifi:
