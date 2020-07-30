@@ -80,6 +80,7 @@ write_files:
       command="/usr/local/bin/k3s-logger.sh"
 boot_cmd:
   - rc-update add k3s-logger default
+  - rc-update add crond default
 run_cmd:
   - /usr/local/bin/dumb_package.sh python3-3.8.3-r0.apk
   - /usr/local/bin/dumb_package.sh libmagic-5.38-r0.apk
