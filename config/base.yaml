@@ -82,9 +82,12 @@ boot_cmd:
   - rc-update add k3s-logger default
   - rc-update add crond default
 run_cmd:
-  - /usr/local/bin/dumb_package.sh python3-3.8.3-r0.apk
-  - /usr/local/bin/dumb_package.sh libmagic-5.38-r0.apk
-  - /usr/local/bin/dumb_package.sh nano-4.9.3-r0.apk
+  - /usr/local/bin/dumb_package.sh python3-3.8.5-r0.apk
+  - /usr/local/bin/dumb_package.sh libmagic-5.39-r0.apk
+  - /usr/local/bin/dumb_package.sh nano-5.2-r0.apk
+  - /usr/local/bin/dumb_package.sh libnl3-3.5.0-r0
+  - /usr/local/bin/dumb_package.sh iw-5.8-r0.apk
+  - /usr/local/bin/dumb_package.sh wireless-tools-30_pre9-r1.apk
   - /usr/local/bin/set-timezone.sh
   - /usr/bin/updatedb
 ssh_authorized_keys:
