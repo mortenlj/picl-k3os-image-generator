@@ -234,7 +234,7 @@ kernel=kernel8.img
 [all]
 EOF
 	PARTUUID=$(sudo blkid -o export $LODEV_ROOT | grep PARTUUID)
-	echo "dwc_otg.lpm_enable=0 root=$PARTUUID rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait init=/sbin/init.resizefs" | sudo tee boot/cmdline.txt >/dev/null
+	echo "dwc_otg.lpm_enable=0 root=$PARTUUID rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait init=/sbin/init.resizefs brcmfmac.debug=0x100000" | sudo tee boot/cmdline.txt >/dev/null
 	sudo rm -rf $PITEMP
 elif [ "$IMAGE_TYPE" = "orangepipc2" ]; then
 	cat <<EOF | sudo tee root/boot/env.txt >/dev/null
